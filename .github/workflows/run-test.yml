@@ -1,0 +1,70 @@
+name: Testing
+
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - '*'
+  schedule:
+    - cron: "0 13 * * 1"
+
+jobs:
+  build-and-test:
+    name: Testing (On ${{ matrix.os }}, with MKL ${{ matrix.mkl-version }})
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash -l {0}
+    strategy:
+      fail-fast: False
+      matrix:
+        os: [ubuntu-latest, macos-12, windows-latest]
+        channel: ['conda-forge', 'defaults']
+        mkl-version: ['2023', '2024']
+        exclude:
+          - os: macos-12
+            mkl-version: "2024"
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Conda
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        mamba-version: '*'
+        channels: ${{ matrix.channel }}
+        channel-priority: true
+        activate-environment: mkl_test
+
+    - name: Conda information
+      run: |
+        conda info
+        conda list
+        conda config --show
+
+    - name: Create environment
+      run: |
+        conda install --quiet --yes mkl=${{ matrix.mkl-version }} mkl-devel pkg-config meson ninja
+
+    - name: Install Our Package
+      run: |
+        python -m pip install --no-build-isolation --verbose --editable . \
+          --config-setting=compile-args=-v \
+          ${{ matrix.coverage && '--config-settings=setup-args="-Db_coverage=true"' || ''}}
+        conda list
+
+    - name: Run Tests
+      run: |
+        ${{ matrix.coverage && 'coverage run -m' || '' }} pytest -s -v
+        ${{ matrix.coverage && 'coverage xml' || '' }}
+      continue-on-error: ${{ matrix.os == 'windows-latest' && matrix.mkl-version == '2024'}}
+
+    - name: Upload coverage
+      if: ${{ matrix.coverage }}
+      uses: codecov/codecov-action@v4
+      with:
+        verbose: true # optional (default = false)
+        token: ${{ secrets.CODECOV_TOKEN }} # required
