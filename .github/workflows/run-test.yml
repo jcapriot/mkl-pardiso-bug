@@ -52,7 +52,7 @@ jobs:
     - name: build the test program
       run: |
         meson setup build ${{ matrix.os == 'windows-latest' && '--vsenv' || ''}}
-        ninja -C build
+        meson compile -C build
 
     - name: Attempt to run
       run: |
