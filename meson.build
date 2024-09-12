@@ -1,7 +1,7 @@
 project(
   'pydiso',
   'cpp',
-  'v0.0.1',
+  version: '0.0.1',
   license: 'MIT',
   default_options: [
     'buildtype=debugoptimized',
