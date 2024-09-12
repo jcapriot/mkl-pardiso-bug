@@ -14,7 +14,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Testing (On ${{ matrix.os }}, with MKL ${{ matrix.mkl-version }})
+    name: Testing (On ${{ matrix.os }}, with MKL ${{ matrix.mkl-version }} from ${{ matrix.channel }} )
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -49,22 +49,6 @@ jobs:
       run: |
         conda install --quiet --yes mkl=${{ matrix.mkl-version }} mkl-devel pkg-config meson ninja
 
-    - name: Install Our Package
+    - name: build the test program
       run: |
-        python -m pip install --no-build-isolation --verbose --editable . \
-          --config-setting=compile-args=-v \
-          ${{ matrix.coverage && '--config-settings=setup-args="-Db_coverage=true"' || ''}}
-        conda list
-
-    - name: Run Tests
-      run: |
-        ${{ matrix.coverage && 'coverage run -m' || '' }} pytest -s -v
-        ${{ matrix.coverage && 'coverage xml' || '' }}
-      continue-on-error: ${{ matrix.os == 'windows-latest' && matrix.mkl-version == '2024'}}
-
-    - name: Upload coverage
-      if: ${{ matrix.coverage }}
-      uses: codecov/codecov-action@v4
-      with:
-        verbose: true # optional (default = false)
-        token: ${{ secrets.CODECOV_TOKEN }} # required
+        meson setup build
