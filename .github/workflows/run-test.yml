@@ -52,3 +52,7 @@ jobs:
     - name: build the test program
       run: |
         meson setup build
+        ninja -C build
+
+    - name: Attempt to run
+        ls -al build
