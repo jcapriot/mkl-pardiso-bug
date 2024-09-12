@@ -57,4 +57,4 @@ jobs:
     - name: Attempt to run
       run: |
         ls -al build
-        .\build\test_solve
+        ./build/test_solve
