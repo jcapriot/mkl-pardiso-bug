@@ -71,31 +71,31 @@ int main() {
     }
 
     // set some defaults
-    iparm[0] = 1  // tell pardiso to not reset these values on the first call
-    iparm[1] = 2  // The nested dissection algorithm from the METIS
-    iparm[3] = 0  // The factorization is always computed as required by phase.
-    iparm[4] = 2  // fill perm with computed permutation vector
-    iparm[5] = 0  // The array x contains the solution; right-hand side vector b is kept unchanged.
-    iparm[7] = 0  // The solver automatically performs two steps of iterative refinement when perterbed pivots are obtained
-    iparm[9] = 8  // pivoting permutation
-    iparm[10] = 0  // No pivot scaling
-    iparm[11] = 0  // Solve a linear system AX = B (as opposed to A.T or A.H)
-    iparm[12] = 0  // No scaling
-    iparm[17] = -1  // Return the number of non-zeros in this value after first call
-    iparm[18] = 0  // do not report flop count
-    iparm[20] = 1  // Bunch-Kaufman pivoting
-    iparm[23] = 0  // classic (not parallel) factorization
-    iparm[24] = 0  // default behavoir of parallel solving
-    iparm[26] = 1  // Check the input matrix
-    iparm[27] = 1  // single precision
-    iparm[33] = 0  // optimal number of thread for CNR mode
-    iparm[34] = 1  // zero based indexing
-    iparm[35] = 0  // Do not compute schur complement
-    iparm[36] = 0  // use CSR storage format
-    iparm[38] = 0  // Do not use low rank update
-    iparm[42] = 0  // Do not compute the diagonal of the inverse
-    iparm[55] = 0  // Internal function used to work with pivot and calculation of diagonal arrays turned off.
-    iparm[59] = 0  // operate in-core mode
+    iparm[0] = 1;  // tell pardiso to not reset these values on the first call
+    iparm[1] = 2;  // The nested dissection algorithm from the METIS
+    iparm[3] = 0;  // The factorization is always computed as required by phase.
+    iparm[4] = 2;  // fill perm with computed permutation vector
+    iparm[5] = 0;  // The array x contains the solution; right-hand side vector b is kept unchanged.
+    iparm[7] = 0;  // The solver automatically performs two steps of iterative refinement when perterbed pivots are obtained
+    iparm[9] = 8;  // pivoting permutation
+    iparm[10] = 0;  // No pivot scaling
+    iparm[11] = 0;  // Solve a linear system AX = B (as opposed to A.T or A.H)
+    iparm[12] = 0;  // No scaling
+    iparm[17] = -1;  // Return the number of non-zeros in this value after first call
+    iparm[18] = 0;  // do not report flop count
+    iparm[20] = 1;  // Bunch-Kaufman pivoting
+    iparm[23] = 0;  // classic (not parallel) factorization
+    iparm[24] = 0;  // default behavoir of parallel solving
+    iparm[26] = 1;  // Check the input matrix
+    iparm[27] = 1;  // single precision
+    iparm[33] = 0;  // optimal number of thread for CNR mode
+    iparm[34] = 1;  // zero based indexing
+    iparm[35] = 0;  // Do not compute schur complement
+    iparm[36] = 0;  // use CSR storage format
+    iparm[38] = 0;  // Do not use low rank update
+    iparm[42] = 0;  // Do not compute the diagonal of the inverse
+    iparm[55] = 0;  // Internal function used to work with pivot and calculation of diagonal arrays turned off.
+    iparm[59] = 0;  // operate in-core mode
 
     MKL_INT* perm;
 
@@ -128,7 +128,7 @@ int main() {
         1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18.,
         19., 20., 21., 22., 23., 24., 25., 26., 27., 28., 29., 30., 31., 32., 33., 34.,
         35., 36., 37., 38., 39., 40.
-    }
+    };
 
     float x[40];
 
@@ -141,8 +141,7 @@ int main() {
     }
     std::cout << "Solve completed ... " << std::endl;
     std::cout << "The solution of the system is: " << std::endl;
-    for ( i = 0; i < n; i++ )
-    {
+    for (int i = 0; i < n; i++ ){
         std::cout << " x ["<<i<<"] = " <<  x[i] << std::endl;
     }
 
