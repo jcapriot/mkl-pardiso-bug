@@ -51,7 +51,7 @@ jobs:
 
     - name: build the test program
       run: |
-        meson setup build
+        meson setup build ${{ matrix.os == 'windows-latest' && '--vsenv' || ''}}
         ninja -C build
 
     - name: Attempt to run
