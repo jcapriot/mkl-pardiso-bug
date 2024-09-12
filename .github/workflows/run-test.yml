@@ -55,4 +55,5 @@ jobs:
         ninja -C build
 
     - name: Attempt to run
+      run: |
         ls -al build
