@@ -99,15 +99,13 @@ int main() {
 
     MKL_INT perm[40];
 
-    MKL_INT err;
-
-    MKL_INT nnz = 78;
+    MKL_INT error;
 
     void *dummy;
 
     MKL_INT phase = 11;
     pardiso(handle, &maxfct, &mnum, &mtype, &phase,
-             &n, data, indptr, indices, &idum, &nrhs, iparm, &msglvl, &dummy, &dummy, &error);
+             &n, data, indptr, indices, perm, &nrhs, iparm, &msglvl, &dummy, &dummy, &error);
     if ( error != 0 ){
         std::cout << "ERROR during symbolic factorization: "<< error << std::endl;
         return 1;
@@ -118,7 +116,7 @@ int main() {
 
     phase = 22;
     pardiso(handle, &maxfct, &mnum, &mtype, &phase,
-             &n, data, indptr, indices, &idum, &nrhs, iparm, &msglvl, &dummy, &dummy, &error);
+             &n, data, indptr, indices, perm, &nrhs, iparm, &msglvl, &dummy, &dummy, &error);
     if ( error != 0 )
     {
         std::cout <<  "ERROR during numerical factorization: " << error << std::endl;
@@ -136,7 +134,7 @@ int main() {
 
     phase = 33;
     pardiso(pt, &maxfct, &mnum, &mtype, &phase,
-             &n, a, ia, ja, &idum, &nrhs, iparm, &msglvl, b, x, &error);
+             &n, a, ia, ja, perm, &nrhs, iparm, &msglvl, b, x, &error);
     if ( error != 0 ){
         std::cout << "ERROR during solution: " << error << std::endl;
         return 3;
