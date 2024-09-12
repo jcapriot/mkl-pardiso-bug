@@ -67,7 +67,7 @@ int main() {
 
     // Init handle
     _MKL_DSS_HANDLE_t handle[64];
-    for(int i; i<64; ++i){
+    for(int i=0; i<64; ++i){
         handle[i] = NULL;
     }
 
@@ -75,7 +75,7 @@ int main() {
 
     // init iparm array
     MKL_INT iparm[64];
-    for(int i; i<64; ++i){
+    for(int i=0; i<64; ++i){
         iparm[i] = 0;
     }
 
