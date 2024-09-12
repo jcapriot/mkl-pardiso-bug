@@ -28,8 +28,7 @@ jobs:
         exclude:
           - os: macos-12
             mkl-version: "2024"
-          - os: ubuntu-latest
-            mkl-version: "2024"
+          - mkl-version: "2024"
             channel: "defaults"
 
     steps:
