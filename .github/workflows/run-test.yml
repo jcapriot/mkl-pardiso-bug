@@ -53,7 +53,7 @@ jobs:
 
     - name: build the test program
       run: |
-        meson setup build ${{ matrix.os == 'windows-latest' && '--vsenv' || ''}}
+        meson setup build -Dbuildtype=release ${{ matrix.os == 'windows-latest' && '--vsenv' || ''}}
         meson compile -C build --verbose
 
     - name: Attempt to run
