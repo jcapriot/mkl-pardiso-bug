@@ -3,7 +3,7 @@
 
 
 int main() {
-    std::cout << "Testing a symmetric indefinite matrix";
+    std::cout << "Testing a symmetric indefinite matrix" << std::endl;
 
     MKL_INT n = 40;
     MKL_INT nnz = 78;
@@ -97,11 +97,13 @@ int main() {
     iparm[55] = 0;  // Internal function used to work with pivot and calculation of diagonal arrays turned off.
     iparm[59] = 0;  // operate in-core mode
 
-    MKL_INT* perm;
+    MKL_INT perm[40];
 
     MKL_INT err;
 
-    void *dummy
+    MKL_INT nnz = 78;
+
+    void *dummy;
 
     MKL_INT phase = 11;
     pardiso(handle, &maxfct, &mnum, &mtype, &phase,
