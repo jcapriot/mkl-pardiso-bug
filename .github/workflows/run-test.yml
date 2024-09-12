@@ -35,7 +35,7 @@ jobs:
       uses: conda-incubator/setup-miniconda@v3
       with:
         mamba-version: '*'
-        channels: ${{ matrix.channel }}
+        channels: conda-forge, defaults
         channel-priority: true
         activate-environment: mkl_test
 
@@ -47,7 +47,7 @@ jobs:
 
     - name: Create environment
       run: |
-        conda install --quiet --yes mkl=${{ matrix.mkl-version }} mkl-devel pkg-config meson ninja
+        conda install --quiet --yes --channel ${{matrix.channel}} mkl=${{ matrix.mkl-version }} mkl-devel pkg-config meson ninja
 
     - name: build the test program
       run: |
