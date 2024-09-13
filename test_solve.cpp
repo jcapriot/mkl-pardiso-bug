@@ -83,7 +83,7 @@ int main() {
     iparm[0] = 1;  // tell pardiso to not reset these values on the first call
     iparm[1] = 2;  // The nested dissection algorithm from the METIS
     iparm[3] = 0;  // The factorization is always computed as required by phase.
-    iparm[4] = 0; // do nothing with perm ... 2;  // fill perm with computed permutation vector
+    iparm[4] = 2;  // fill perm with computed permutation vector
     iparm[5] = 0;  // The array x contains the solution; right-hand side vector b is kept unchanged.
     iparm[7] = 0;  // The solver automatically performs two steps of iterative refinement when perterbed pivots are obtained
     iparm[9] = 8;  // pivoting permutation
